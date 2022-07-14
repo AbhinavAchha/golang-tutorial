@@ -30,4 +30,10 @@ func main() {
     sort.Ints(highScore)
     fmt.Println(highScore)
 
+    // how to remove an element from an array
+    var courses = []string{"Go", "Python", "Ruby", "Java", "C++", "C#", "JavaScript", "PHP", "Swift", "Objective-C"}
+    var index int  = 2
+    courses = append(courses[:index], courses[index+1:]...)
+    fmt.Println(courses)
+
 }
