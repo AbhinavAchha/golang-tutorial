@@ -4,12 +4,14 @@ import (
 	"fmt"
 	"io"
 	"net/http"
+	"net/url"
 	"strings"
 )
 
 func main() {
     // GetRequest("https://www.google.com")
-    PostJsonRequest("http://localhost:8000/post")
+    // PostJsonRequest("http://localhost:8000/post")
+    PostFormRequest("http://localhost:8000/postForm")
     
 }
 
@@ -59,5 +61,28 @@ func PostJsonRequest(url string)  {
     }
 
     fmt.Println(string(content))
+    
+}
+
+func PostFormRequest(path string)  {
+    
+    var data = url.Values{"name": {"GOlanf", "a"}, "email": {"100"}}
+    data.Add("password", "123456")
+
+    var response, err = http.PostForm(path, data)
+
+    if err != nil {
+        panic(err)
+    }
+
+    defer response.Body.Close()
+
+    var content, e = io.ReadAll(response.Body)
+    if e != nil {
+        panic(e)
+    }
+    var rstr strings.Builder
+    rstr.Write(content)
+    fmt.Println(rstr.String())
     
 }
